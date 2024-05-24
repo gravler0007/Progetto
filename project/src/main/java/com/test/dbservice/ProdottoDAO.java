@@ -13,6 +13,7 @@ package com.test.dbservice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.test.model.Prodotto;
@@ -35,18 +36,25 @@ public class ProdottoDAO {
         }
     }
     
-    // public void createProduct(Product product) throws SQLException {
-    //     String sql = "INSERT INTO Product (user_id, name, description, price, stock) VALUES (?, ?, ?, ?, ?)";
-    //     try (Connection conn = Database.getConnection();
-    //             PreparedStatement stmt = conn.prepareStatement(sql)) {
-    //         stmt.setInt(1, product.userId);
-    //         stmt.setString(2, product.name);
-    //         stmt.setString(3, product.description);
-    //         stmt.setDouble(4, product.price);
-    //         stmt.setInt(5, product.stock);
-    //         stmt.executeUpdate();
-    //     }
-    // }
+    public Prodotto getProduct(int productId) throws SQLException {
+        String sql = "SELECT * FROM product WHERE product_id = ?";
+        Prodotto product = new Prodotto(0, 0, "", "", 0, 0);
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, productId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                product.setProduct_id(rs.getInt("product_id"));
+                product.setUser_id(rs.getInt("user_id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getDouble("price"));
+                product.setStock(rs.getInt("stock"));
+                return product;
+            }
+        }
+        return null;
+    }
 
 
 }

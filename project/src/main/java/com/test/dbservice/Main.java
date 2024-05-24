@@ -21,6 +21,7 @@ public class Main {
             System.out.println("3. Aggiorna un utente");
             System.out.println("4. Cancella un utente");
             System.out.println("5. Inserisci un nuovo prodotto");
+            System.out.println("6. Visualizza prodotto");
             System.out.println("0. Esci\n");
             System.out.print("Choice: ");
 
@@ -106,7 +107,19 @@ public class Main {
                     prodottoDAO.createProdotto(nuovoProdotto);
                     System.out.println("Prodotto inserito con successo!");
                     waitInput(scannerS);
-                    //clearDisplay();
+                    clearDisplay();
+                    break;
+
+                case 6:
+                    System.out.print("Inserisci l'id del prodotto che stai cercando: ");
+                    int idProdotto = scannerN.nextInt();
+                    
+                    // System.out.println("Elenco utenti:\n");
+                    // for (Utente utente : utenti) {
+                    //     System.out.println(utente);
+                    // }
+                    waitInput(scannerS);
+                    clearDisplay();
                     break;
                     
 
